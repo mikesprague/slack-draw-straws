@@ -12,9 +12,6 @@ module.exports = async function (context, req) {
   const slackOptions = {
     slackAppLogoUrl: 'https://cdn.shopify.com/s/files/1/1329/2645/products/Drinking_Straws15_1024x1024.jpg?v=1498664680',
     fromUser: 'Straw Draw Slack App',
-    postToChannel: [
-      'UD5LM3DJT', // @michaelsprague
-    ],
   };
 
   // helper functions
@@ -29,7 +26,7 @@ module.exports = async function (context, req) {
     }
   }
 
-  async function postToSlack(shortStrawUser, originalUserList, postToChannel) {
+  async function postToSlack(shortStrawUser, originalUserList) {
     const userNames = originalUserList.map(user => user.name);
     try {
       const messageConfig = {
@@ -56,7 +53,6 @@ module.exports = async function (context, req) {
             }
           }
         ],
-        channel: postToChannel,
         as_user: false,
         icon_url: slackOptions.slackAppLogoUrl,
         username: slackOptions.fromUser,
@@ -137,7 +133,7 @@ module.exports = async function (context, req) {
         console.log(userId);
         const userId = await getRandomMember(usersForStrawDraw);
         const shortStrawUserInfo = await getSlackUserInfo(userId);
-        const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw, slackOptions.postToChannel[0]);
+        const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw);
         context.done();
       } else {
         context.res = {
