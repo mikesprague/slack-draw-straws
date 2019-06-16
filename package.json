@@ -1,0 +1,110 @@
+{
+  "name": "slack-draw-straws",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "dev": "func host start",
+    "test": "echo \"No tests yet...\""
+  },
+  "author": {
+    "name": "Michael Sprague",
+    "email": "ms388@cornell.edu"
+  },
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@bugsnag/js": "^6.3.0",
+    "@slack/rtm-api": "^5.0.1",
+    "@slack/web-api": "^5.0.1",
+    "snyk": "^1.179.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-compat": "^3.1.2",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "1.18.2"
+  },
+  "babel": {
+    "plugins": [],
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "plugins": [
+      "compat",
+      "import",
+      "prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-parser",
+      "ecmaVersion": 8,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "modules": true
+      }
+    },
+    "rules": {
+      "curly": "error",
+      "object-curly-newline": "error",
+      "semi": "error",
+      "prefer-arrow-callback": "warn",
+      "arrow-spacing": "error",
+      "eqeqeq": "error",
+      "quotes": [
+        "error",
+        "single",
+        {
+          "avoidEscape": true,
+          "allowTemplateLiterals": true
+        }
+      ],
+      "max-len": [
+        "warn",
+        {
+          "code": 120,
+          "tabWidth": 4,
+          "ignoreUrls": true
+        }
+      ],
+      "import/no-cycle": [
+        "warn",
+        {
+          "maxDepth": 1
+        }
+      ],
+      "import/prefer-default-export": "off",
+      "func-names": "off",
+      "no-param-reassign": "warn",
+      "no-unused-vars": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "semi": true,
+    "tabWidth": 2,
+    "plugins": [
+      "all"
+    ],
+    "printWidth": 120
+  }
+}
