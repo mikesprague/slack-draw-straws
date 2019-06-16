@@ -11,7 +11,7 @@ module.exports = async function (context, req) {
   const slackWebClient = new WebClient(SLACK_BOT_OAUTH_ACCESS_TOKEN);
   const slackOptions = {
     slackAppLogoUrl: 'https://cdn.shopify.com/s/files/1/1329/2645/products/Drinking_Straws15_1024x1024.jpg?v=1498664680',
-    fromUser: 'Straw Draw Slack App',
+    fromUser: 'Draw Straws Slack App',
   };
 
   // helper functions
