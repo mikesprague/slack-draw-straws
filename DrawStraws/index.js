@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
   // helper functions
   async function handleError(error) {
     if (process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development') {
-      // console.error(error.message);
+      console.error(error.message);
       throw new Error(error);
     } else {
       /* eslint-disable no-undef */
@@ -27,10 +27,20 @@ module.exports = async function (context, req) {
   }
 
   async function postToSlack(shortStrawUser, originalUserList) {
-    const userNames = originalUserList.map(user => user.name);
+    console.log(originalUserList.startInfo)
+    const userNames = originalUserList.slackUsersList.map(user => user.name);
     try {
       const messageConfig = {
         blocks: [
+          {
+            type: 'context',
+            elements: [
+              {
+                type: 'mrkdwn',
+                text: `INITIATED BY: ${originalUserList.startInfo.username}`,
+              }
+            ]
+          },
           {
             type: 'context',
             elements: [
@@ -56,6 +66,7 @@ module.exports = async function (context, req) {
         as_user: false,
         icon_url: slackOptions.slackAppLogoUrl,
         username: slackOptions.fromUser,
+        channel: originalUserList.startInfo.userId,
       };
       const result = await slackWebClient.chat.postMessage(messageConfig);
       return result;
@@ -114,42 +125,38 @@ module.exports = async function (context, req) {
     const pc = decodeURIComponent(postBody).split('&').map(param => param.split('='));
     // turns above array of arrays into an object
     const opc = objectify(pc);
-    // console.log(opc);
     // turn string of users into an array
     const apc = opc.text.split('+');
     const slackUsersList = apc.map((user) => {
       return {
-        id: user.replace('<@', '').replace('>', '').split('|')[0],
-        name: user.replace('<@', '').replace('>', '').split('|')[1]
+          id: user.replace('<@', '').replace('>', '').split('|')[0],
+          name: user.replace('<@', '').replace('>', '').split('|')[1],
       };
     });
-    return slackUsersList;
+    return {
+      startInfo: {
+        channel: opc.channel_id,
+        userId: opc.user_id,
+        username: opc.user_name,
+      },
+      slackUsersList,
+    };
   }
 
   try {
-    if (req.body.length) {
-      const usersForStrawDraw = await parseUsersFromPostBody(req.body);
-      if (usersForStrawDraw.length) {
-        const userId = await getRandomMember(usersForStrawDraw);
-        const shortStrawUserInfo = await getSlackUserInfo(userId);
-        const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw);
-        context.done();
-      } else {
-        context.res = {
-          // status: 200, /* Defaults to 200 */
-          headers: {
-            'Content-Type': 'text/html',
-          },
-          body: 'ERROR: You must pass usersnames in to the `/drawstraws` command',
-        };
-      }
+    if (context.req && context.req.body.length) {
+      const usersForStrawDraw = await parseUsersFromPostBody(context.req.body);
+      const userId = await getRandomMember(usersForStrawDraw.slackUsersList);
+      const shortStrawUserInfo = await getSlackUserInfo(userId);
+      const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw);
+      context.done();
     } else {
       context.res = {
-        // status: 200, /* Defaults to 200 */
+        status: 500,
         headers: {
           'Content-Type': 'text/html',
         },
-        body: 'ERROR: You must pass usersnames in to the `/drawstraws` command',
+        body: 'ERROR: You must pass a list of usernames (`@user`) in to the `/drawstraws` command',
       };
     }
   } catch (error) {
@@ -159,7 +166,7 @@ module.exports = async function (context, req) {
       headers: {
         'Content-Type': 'text/plain',
       },
-      body: 'Sorry, there was a problem with your request',
+      body: 'Sorry, there was a problem with your request, please try again',
     };
   }
 };
