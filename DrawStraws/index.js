@@ -27,7 +27,6 @@ module.exports = async function (context, req) {
   }
 
   async function postToSlack(shortStrawUser, originalUserList) {
-    console.log(originalUserList.startInfo)
     const userNames = originalUserList.slackUsersList.map(user => user.name);
     try {
       const messageConfig = {
