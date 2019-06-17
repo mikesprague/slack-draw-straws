@@ -129,8 +129,7 @@ module.exports = async function (context, req) {
   try {
     if (req.body.length) {
       const usersForStrawDraw = await parseUsersFromPostBody(req.body);
-      if (userId) {
-        console.log(userId);
+      if (usersForStrawDraw.length) {
         const userId = await getRandomMember(usersForStrawDraw);
         const shortStrawUserInfo = await getSlackUserInfo(userId);
         const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw);
