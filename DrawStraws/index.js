@@ -36,7 +36,7 @@ module.exports = async function (context, req) {
             elements: [
               {
                 type: 'mrkdwn',
-                text: `INITIATED BY: ${originalUserList.startInfo.username}`,
+                text: `DRAWN FROM: ${userNames.join(' | ')}`,
               }
             ]
           },
@@ -45,9 +45,12 @@ module.exports = async function (context, req) {
             elements: [
               {
                 type: 'mrkdwn',
-                text: `DRAWN FROM: ${userNames.join(' | ')}`,
+                text: `INITIATED BY: ${originalUserList.startInfo.username}`,
               }
             ]
+          },
+          {
+            type: 'divider',
           },
           {
             type: 'section',
@@ -60,15 +63,18 @@ module.exports = async function (context, req) {
               image_url: `${shortStrawUser.user.profile.image_48}`,
               alt_text: `${shortStrawUser.user.profile.real_name_normalized}`,
             }
-          }
+          },
         ],
         as_user: false,
         icon_url: slackOptions.slackAppLogoUrl,
         username: slackOptions.fromUser,
         channel: originalUserList.startInfo.userId,
       };
-      const result = await slackWebClient.chat.postMessage(messageConfig);
-      return result;
+      const allResults = await originalUserList.slackUsersList.map(async (slackUser) => {
+        messageConfig['channel'] = slackUser.id;
+        const msgResult = await slackWebClient.chat.postMessage(messageConfig);
+      });
+      return allResults;
     } catch (error) {
       return handleError(error);
     }
