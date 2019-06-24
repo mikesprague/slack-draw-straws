@@ -37,8 +37,8 @@ module.exports = async function (context, req) {
               {
                 type: 'mrkdwn',
                 text: `DRAWN FROM: ${userNames.join(' | ')}`,
-              }
-            ]
+              },
+            ],
           },
           {
             type: 'context',
@@ -46,8 +46,8 @@ module.exports = async function (context, req) {
               {
                 type: 'mrkdwn',
                 text: `INITIATED BY: ${originalUserList.startInfo.username}`,
-              }
-            ]
+              },
+            ],
           },
           {
             type: 'divider',
@@ -62,7 +62,7 @@ module.exports = async function (context, req) {
               type: 'image',
               image_url: `${shortStrawUser.user.profile.image_48}`,
               alt_text: `${shortStrawUser.user.profile.real_name_normalized}`,
-            }
+            },
           },
         ],
         as_user: false,
@@ -71,7 +71,7 @@ module.exports = async function (context, req) {
         channel: originalUserList.startInfo.userId,
       };
       const allResults = await originalUserList.slackUsersList.map(async (slackUser) => {
-        messageConfig['channel'] = slackUser.id;
+        messageConfig.channel = slackUser.id;
         const msgResult = await slackWebClient.chat.postMessage(messageConfig);
       });
       return allResults;
@@ -87,28 +87,28 @@ module.exports = async function (context, req) {
 
   async function getPrivateSlackChannelInfo(slackChannel) {
     const result = await slackWebClient.groups.info({
-        channel: slackChannel,
+      channel: slackChannel,
     });
     return result;
   }
 
   async function getPrivateSlackChannelMembers(slackChannel) {
     const result = await slackWebClient.groups.info({
-        channel: slackChannel,
+      channel: slackChannel,
     });
     return result;
   }
 
   async function getSlackUserInfo(user) {
     const result = await slackWebClient.users.info({
-        user,
+      user,
     });
     return result;
   }
 
   async function getSlackUserNameFromId(user) {
     const result = await slackWebClient.users.info({
-        user,
+      user,
     });
     return result.user.name;
   }
@@ -122,8 +122,8 @@ module.exports = async function (context, req) {
   async function parseUsersFromPostBody(postBody) {
     function objectify(array) {
       return array.reduce(function(p, c) {
-           p[c[0]] = c[1];
-           return p;
+        p[c[0]] = c[1];
+        return p;
       }, {});
     }
     // takes the req body string and returns an array of arrays with the param names and values
@@ -134,8 +134,8 @@ module.exports = async function (context, req) {
     const apc = opc.text.split('+');
     const slackUsersList = apc.map((user) => {
       return {
-          id: user.replace('<@', '').replace('>', '').split('|')[0],
-          name: user.replace('<@', '').replace('>', '').split('|')[1],
+        id: user.replace('<@', '').replace('>', '').split('|')[0],
+        name: user.replace('<@', '').replace('>', '').split('|')[1],
       };
     });
     return {
