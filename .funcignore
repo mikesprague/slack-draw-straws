@@ -2,6 +2,7 @@
 *.ts
 .git*
 .vscode
+.history
 local.settings.json
 test
 tsconfig.json
