@@ -1,4 +1,4 @@
-module.exports = function(context, myTimer) => {
+module.exports = function(context, myTimer) {
   const timeStamp = new Date().toISOString();
 
   if(myTimer.isPastDue)

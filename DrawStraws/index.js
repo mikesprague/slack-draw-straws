@@ -121,7 +121,7 @@ module.exports = async function (context, req) {
 
   async function parseUsersFromPostBody(postBody) {
     function objectify(array) {
-      return array.reduce(function(p, c) {
+      return array.reduce((p, c) => {
         p[c[0]] = c[1];
         return p;
       }, {});
