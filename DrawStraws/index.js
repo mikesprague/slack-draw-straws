@@ -56,7 +56,7 @@ module.exports = async function (context, req) {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: `${shortStrawUser.user.profile.first_name} (\`@\`${shortStrawUser.user.name}) drew the short straw`,
+              text: `${shortStrawUser.user.profile.first_name} (@${shortStrawUser.user.name}) drew the short straw`,
             },
             accessory: {
               type: 'image',
