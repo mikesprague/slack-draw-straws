@@ -20,13 +20,13 @@
   "dependencies": {
     "@bugsnag/js": "^6.3.2",
     "@slack/web-api": "^5.1.0",
-    "snyk": "^1.211.0"
+    "snyk": "^1.216.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-compat": "^3.3.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
