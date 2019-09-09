@@ -22,7 +22,7 @@ module.exports = async function (context, req) {
     } else {
       /* eslint-disable no-undef */
       bugsnagClient.notify(error);
-      /* eslint-enable no-endef */
+      /* eslint-enable no-undef */
     }
   }
 
