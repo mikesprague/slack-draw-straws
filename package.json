@@ -20,7 +20,7 @@
   "dependencies": {
     "@bugsnag/js": "^6.4.1",
     "@slack/web-api": "^5.2.0",
-    "snyk": "^1.230.3"
+    "snyk": "^1.230.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
