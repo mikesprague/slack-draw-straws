@@ -19,8 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "@bugsnag/js": "^6.4.3",
-    "@slack/web-api": "^5.3.0",
-    "snyk": "^1.240.0"
+    "@slack/web-api": "^5.4.0",
+    "snyk": "^1.240.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
