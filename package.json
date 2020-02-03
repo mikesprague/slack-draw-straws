@@ -8,28 +8,30 @@
   },
   "author": {
     "name": "Michael Sprague",
-    "email": "ms388@cornell.edu"
+    "email": "mikesprague@gmail.com"
   },
+  "private": true,
   "repository": {
-    "url": ""
+    "url": "https://github.com/mikesprague/slack-draw-straws"
   },
   "engines": {
-    "node": "10.x"
+    "node": ">= 10.x",
+    "npm": ">= 6.x"
   },
   "license": "MIT",
   "dependencies": {
     "@bugsnag/js": "^6.5.0",
     "@slack/web-api": "^5.7.0",
-    "snyk": "^1.283.0"
+    "snyk": "^1.290.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "6.9.0",
+    "eslint-config-prettier": "6.10.0",
     "eslint-plugin-compat": "^3.5.1",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "1.19.1"
   },
