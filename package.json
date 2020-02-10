@@ -20,9 +20,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@bugsnag/js": "^6.5.0",
+    "@bugsnag/js": "^6.5.2",
     "@slack/web-api": "^5.7.0",
-    "snyk": "^1.290.1"
+    "snyk": "^1.290.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
