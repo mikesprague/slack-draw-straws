@@ -1,4 +1,4 @@
-const bugsnag = require('@bugsnag/js');
+const Bugsnag = require('@bugsnag/js');
 const { WebClient } = require('@slack/web-api');
 
 module.exports = async function (context, req) {
@@ -7,7 +7,7 @@ module.exports = async function (context, req) {
     BUGSNAG_API_KEY,
     SLACK_BOT_OAUTH_ACCESS_TOKEN,
   } = process.env;
-  const bugsnagClient = bugsnag(BUGSNAG_API_KEY);
+  Bugsnag.start(BUGSNAG_API_KEY);
   const slackWebClient = new WebClient(SLACK_BOT_OAUTH_ACCESS_TOKEN);
   const slackOptions = {
     slackAppLogoUrl: 'https://cdn.shopify.com/s/files/1/1329/2645/products/Drinking_Straws15_1024x1024.jpg?v=1498664680',
@@ -21,7 +21,7 @@ module.exports = async function (context, req) {
       throw new Error(error);
     } else {
       /* eslint-disable no-undef */
-      bugsnagClient.notify(error);
+      Bugsnag.notify(error);
       /* eslint-enable no-undef */
     }
   }
