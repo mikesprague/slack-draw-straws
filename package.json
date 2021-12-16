@@ -15,25 +15,25 @@
     "url": "https://github.com/mikesprague/slack-draw-straws"
   },
   "engines": {
-    "node": ">= 10.x",
+    "node": ">= 14.x",
     "npm": ">= 6.x"
   },
   "license": "MIT",
   "dependencies": {
-    "@bugsnag/js": "^7.0.0",
-    "@slack/web-api": "^5.8.0",
-    "snyk": "^1.305.1"
+    "@bugsnag/js": "^7.14.1",
+    "@slack/web-api": "^5.15.0",
+    "snyk": "^1.794.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-compat": "^3.5.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.3",
-    "prettier": "2.0.4"
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-compat": "^4.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.5.1"
   },
   "babel": {
     "plugins": [],
