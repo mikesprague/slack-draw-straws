@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev": "func host start",
+    "func": "cross-env NODE_ENV=development LOCAL_DEV=true func start",
+    "func:verbose": "cross-env NODE_ENV=development LOCAL_DEV=true func start --verbose",
     "test": "echo \"No tests yet...\""
   },
   "author": {
@@ -27,6 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
+    "azure-functions-core-tools": "^4.0.3971",
+    "cross-env": "^7.0.3",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "8.5.0",
