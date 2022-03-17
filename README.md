@@ -1,6 +1,6 @@
 # Draw Straws Azure Function/Slack Slash Command
 
-[![Build Status](https://dev.azure.com/ms388-test-azure-devops-org/ms388-sdk-testing/_apis/build/status/ms388-slack-draw-straws%20-%20CI?branchName=master)](https://dev.azure.com/ms388-test-azure-devops-org/ms388-sdk-testing/_build/latest?definitionId=4&branchName=master)
+[![PROD Build & Deploy](https://github.com/mikesprague/slack-draw-straws/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/mikesprague/slack-draw-straws/actions/workflows/build-and-deploy.yml)
 
 ## :construction: Work in Progress
 
