@@ -1,16 +1,15 @@
 const Bugsnag = require('@bugsnag/js');
 const { WebClient } = require('@slack/web-api');
 
+// eslint-disable-next-line no-unused-vars
 module.exports = async function (context, req) {
   // set variables used in both main function and helper functions
-  const {
-    BUGSNAG_API_KEY,
-    SLACK_BOT_OAUTH_ACCESS_TOKEN,
-  } = process.env;
+  const { BUGSNAG_API_KEY, SLACK_BOT_OAUTH_ACCESS_TOKEN } = process.env;
   Bugsnag.start(BUGSNAG_API_KEY);
   const slackWebClient = new WebClient(SLACK_BOT_OAUTH_ACCESS_TOKEN);
   const slackOptions = {
-    slackAppLogoUrl: 'https://cdn.shopify.com/s/files/1/1329/2645/products/Drinking_Straws15_1024x1024.jpg?v=1498664680',
+    slackAppLogoUrl:
+      'https://cdn.shopify.com/s/files/1/1329/2645/products/Drinking_Straws15_1024x1024.jpg?v=1498664680',
     fromUser: 'Draw Straws Slack App',
   };
 
@@ -27,7 +26,7 @@ module.exports = async function (context, req) {
   }
 
   async function postToSlack(shortStrawUser, originalUserList) {
-    const userNames = originalUserList.slackUsersList.map(user => user.name);
+    const userNames = originalUserList.slackUsersList.map((user) => user.name);
     try {
       const messageConfig = {
         blocks: [
@@ -70,34 +69,36 @@ module.exports = async function (context, req) {
         username: slackOptions.fromUser,
         channel: originalUserList.startInfo.userId,
       };
-      const allResults = await originalUserList.slackUsersList.map(async (slackUser) => {
-        messageConfig.channel = slackUser.id;
-        const msgResult = await slackWebClient.chat.postMessage(messageConfig);
-      });
+      const allResults = await originalUserList.slackUsersList.map(
+        async (slackUser) => {
+          messageConfig.channel = slackUser.id;
+          await slackWebClient.chat.postMessage(messageConfig);
+        },
+      );
       return allResults;
     } catch (error) {
       return handleError(error);
     }
   }
 
-  async function listPrivateSlackChannels() {
-    const result = await slackWebClient.groups.list();
-    return result;
-  }
+  // async function listPrivateSlackChannels() {
+  //   const result = await slackWebClient.groups.list();
+  //   return result;
+  // }
 
-  async function getPrivateSlackChannelInfo(slackChannel) {
-    const result = await slackWebClient.groups.info({
-      channel: slackChannel,
-    });
-    return result;
-  }
+  // async function getPrivateSlackChannelInfo(slackChannel) {
+  //   const result = await slackWebClient.groups.info({
+  //     channel: slackChannel,
+  //   });
+  //   return result;
+  // }
 
-  async function getPrivateSlackChannelMembers(slackChannel) {
-    const result = await slackWebClient.groups.info({
-      channel: slackChannel,
-    });
-    return result;
-  }
+  // async function getPrivateSlackChannelMembers(slackChannel) {
+  //   const result = await slackWebClient.groups.info({
+  //     channel: slackChannel,
+  //   });
+  //   return result;
+  // }
 
   async function getSlackUserInfo(user) {
     const result = await slackWebClient.users.info({
@@ -106,16 +107,16 @@ module.exports = async function (context, req) {
     return result;
   }
 
-  async function getSlackUserNameFromId(user) {
-    const result = await slackWebClient.users.info({
-      user,
-    });
-    return result.user.name;
-  }
+  // async function getSlackUserNameFromId(user) {
+  //   const result = await slackWebClient.users.info({
+  //     user,
+  //   });
+  //   return result.user.name;
+  // }
   // end helper functions
 
   async function getRandomMember(membersArray) {
-    const randomNum = Math.floor(Math.random() * (membersArray.length));
+    const randomNum = Math.floor(Math.random() * membersArray.length);
     return membersArray[randomNum].id;
   }
 
@@ -127,17 +128,17 @@ module.exports = async function (context, req) {
       }, {});
     }
     // takes the req body string and returns an array of arrays with the param names and values
-    const pc = decodeURIComponent(postBody).split('&').map(param => param.split('='));
+    const pc = decodeURIComponent(postBody)
+      .split('&')
+      .map((param) => param.split('='));
     // turns above array of arrays into an object
     const opc = objectify(pc);
     // turn string of users into an array
     const apc = opc.text.split('+');
-    const slackUsersList = apc.map((user) => {
-      return {
-        id: user.replace('<@', '').replace('>', '').split('|')[0],
-        name: user.replace('<@', '').replace('>', '').split('|')[1],
-      };
-    });
+    const slackUsersList = apc.map((user) => ({
+      id: user.replace('<@', '').replace('>', '').split('|')[0],
+      name: user.replace('<@', '').replace('>', '').split('|')[1],
+    }));
     return {
       startInfo: {
         channel: opc.channel_id,
@@ -153,7 +154,7 @@ module.exports = async function (context, req) {
       const usersForStrawDraw = await parseUsersFromPostBody(context.req.body);
       const userId = await getRandomMember(usersForStrawDraw.slackUsersList);
       const shortStrawUserInfo = await getSlackUserInfo(userId);
-      const msgInfo = await postToSlack(shortStrawUserInfo, usersForStrawDraw);
+      await postToSlack(shortStrawUserInfo, usersForStrawDraw);
       context.done();
     } else {
       context.res = {
