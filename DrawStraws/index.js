@@ -19,6 +19,7 @@ module.exports = async function (context, req) {
       console.error(error.message);
       throw new Error(error);
     } else {
+      console.error(error);
       /* eslint-disable no-undef */
       Bugsnag.notify(error);
       /* eslint-enable no-undef */
