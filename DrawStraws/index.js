@@ -156,9 +156,8 @@ module.exports = async function (context, req) {
       const userId = await getRandomMember(usersForStrawDraw.slackUsersList);
       const shortStrawUserInfo = await getSlackUserInfo(userId);
       await postToSlack(shortStrawUserInfo, usersForStrawDraw);
-      context.done();
     } else {
-      context.res = {
+      return {
         status: 500,
         headers: {
           'Content-Type': 'text/html',
@@ -168,7 +167,7 @@ module.exports = async function (context, req) {
     }
   } catch (error) {
     handleError(error);
-    context.res = {
+    return {
       status: 500,
       headers: {
         'Content-Type': 'text/plain',
