@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@bugsnag/js": "^7.18.0",
-    "@slack/web-api": "^5.15.0"
+    "@slack/web-api": "^6.9.0"
   },
   "devDependencies": {
     "@babel/core": "7.22.1",
